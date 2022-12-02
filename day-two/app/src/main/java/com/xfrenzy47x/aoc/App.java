@@ -3,85 +3,24 @@
  */
 package com.xfrenzy47x.aoc;
 
+import com.xfrenzy47x.aoc.service.GameService;
+import com.xfrenzy47x.aoc.service.NewGameService;
+import com.xfrenzy47x.aoc.util.Helper;
+
 import java.io.File;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.Scanner;
 
 public class App {
-    static final int ROCK = 1;
-    static final int PAPER = 2;
-    static final int SCISSOR = 3;
 
-    static final String THEIR_ROCK = "A";
-    static final String THEIR_PAPER = "B";
-    static final String THEIR_SCISSOR = "C";
-
-    static final String MY_ROCK = "X";
-    static final String MY_PAPER = "Y";
-    static final String MY_SCISSOR = "Z";
-    static int score;
-
-    static final int DRAW_SCORE = 3;
-    static final int WIN_SCORE = 6;
-
-    static int theirOption;
-    static int myOption;
     public static void main(String[] args) throws URISyntaxException {
-        File input = getFile();
+        File input = Helper.getFile("input.txt");
 
-        try (Scanner scanner = new Scanner(input)) {
-            while(scanner.hasNext()) {
-                String line = scanner.nextLine();
-                calculateScore(line.split(" "));
-            }
-        } catch (Exception ex) {
-            // Whoops :D
-        }
+        GameService gameService = new GameService(input);
+        NewGameService newGameService = new NewGameService(input);
 
-        System.out.println("My score is: " + score);
+        System.out.println("My score following the old rules are: " + gameService.getScore());
+        System.out.println("My score following the new rules are: " + newGameService.getScore());
     }
 
-    private static void calculateScore(String[] options) {
-        setOptions(options[1], options[0]);
-        score += myOption;
 
-        if (myOption == theirOption) {
-            score += DRAW_SCORE;
-        } else if (myOption == ROCK && theirOption == SCISSOR) {
-            score += WIN_SCORE;
-        } else if (myOption == SCISSOR && theirOption == ROCK) {
-            System.out.println("loser");
-        } else if (myOption > theirOption) {
-            score += WIN_SCORE;
-        }
-    }
-
-    private static void setOptions(String mine, String theirs) {
-        myOption = 0;
-        theirOption = 0;
-
-        switch (mine) {
-            case MY_ROCK -> myOption = ROCK;
-            case MY_PAPER -> myOption = PAPER;
-            case MY_SCISSOR -> myOption = SCISSOR;
-            default -> System.out.println("? ? ?");
-        }
-
-        switch (theirs) {
-            case THEIR_ROCK -> theirOption = ROCK;
-            case THEIR_PAPER -> theirOption = PAPER;
-            case THEIR_SCISSOR -> theirOption = SCISSOR;
-            default -> System.out.println("? ? ?");
-        }
-    }
-
-    private static File getFile() throws URISyntaxException {
-        URL resource = App.class.getClassLoader().getResource("input.txt");
-        if (resource == null) {
-            throw new IllegalArgumentException("Resource " + "input.txt" + " is missing...");
-        } else {
-            return new File(resource.toURI());
-        }
-    }
 }
