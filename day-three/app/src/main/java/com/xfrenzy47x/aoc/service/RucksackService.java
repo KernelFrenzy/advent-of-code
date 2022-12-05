@@ -10,32 +10,52 @@ import java.util.Scanner;
 public class RucksackService {
 
     int score;
+    int groupScore;
     public RucksackService(String resourceName) throws URISyntaxException {
         score = 0;
+        groupScore = 0;
 
         File input = Helper.getFile(resourceName);
 
+        ArrayList<String> group = new ArrayList<>();
         try (Scanner scanner = new Scanner(input)) {
             while(scanner.hasNext()) {
                 String line = scanner.nextLine();
+                if (group.size() == 3) {
+                    checkRucksackGroup(group);
+                    group = new ArrayList<>();
+
+                }
+                group.add(line);
                 checkRucksack(line);
+            }
+            if (group.size() == 3) {
+                checkRucksackGroup(group);
             }
         } catch (Exception ex) {
             // Whoops :D
         }
     }
 
+    private void checkRucksackGroup(ArrayList<String> group) {
+        char[] bagOne = group.get(0).toCharArray();
+
+        for (char bagO : bagOne) {
+            if (group.get(1).contains(bagO + "") && group.get(2).contains(bagO + "")) {
+                groupScore += getPriority(bagO);
+                break;
+            }
+        }
+    }
+
     private void checkRucksack(String theLine) {
         char[] compartmentOne = theLine.substring(0, theLine.length() / 2).toCharArray();
-        char[] compartmentTwo = theLine.substring(theLine.length() / 2).toCharArray();
 
         ArrayList<Integer> priorities = new ArrayList<>();
 
         for (char one : compartmentOne) {
-            for (char two : compartmentTwo) {
-                if (one == two) {
-                    priorities.add(getPriority(one));
-                }
+            if (theLine.substring(theLine.length() / 2).contains(one + "")) {
+                priorities.add(getPriority(one));
             }
         }
 
@@ -55,5 +75,9 @@ public class RucksackService {
 
     public int getScore() {
         return score;
+    }
+
+    public int getGroupScore() {
+        return groupScore;
     }
 }
