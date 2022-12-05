@@ -3,9 +3,13 @@
  */
 package com.xfrenzy47x.aoc;
 
+import com.xfrenzy47x.aoc.service.RucksackService;
+import java.net.URISyntaxException;
+
 public class App {
 
-    public static void main(String[] args) {
-        System.out.println("Ready for Day 3... Are you?");
+    public static void main(String[] args) throws URISyntaxException {
+        RucksackService rucksackService = new RucksackService("input.txt");
+        System.out.println("Sum of priorities for matching items: " + rucksackService.getScore());
     }
 }
