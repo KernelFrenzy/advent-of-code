@@ -9,11 +9,13 @@ import java.util.Scanner;
 
 public class DataStreamService {
 
-    int markerComplete;
+    int startOfPacketMarkerComplete;
+    int messageMarkerComplete;
     public DataStreamService(String resourceName) throws URISyntaxException {
         File input = getFile(resourceName);
         String packetMarker = "";
-        markerComplete = 0;
+        startOfPacketMarkerComplete = 0;
+        messageMarkerComplete = 0;
         String theStream = "";
         try (Scanner scanner = new Scanner(input)) {
             while(scanner.hasNext()) {
@@ -30,15 +32,23 @@ public class DataStreamService {
             } else {
                 packetMarker += chara;
             }
-            if (packetMarker.length() == 4) {
-                markerComplete = i+1;
+
+            if (packetMarker.length() == 4 && startOfPacketMarkerComplete == 0) {
+                startOfPacketMarkerComplete = i+1;
+                packetMarker = "";
+            } else if (packetMarker.length() == 14 && messageMarkerComplete == 0) {
+                messageMarkerComplete = i+1;
                 break;
             }
         }
     }
 
-    public int getMarkerComplete() {
-        return markerComplete;
+    public int getStartOfPacketMarkerComplete() {
+        return startOfPacketMarkerComplete;
+    }
+
+    public int getMessageMarkerComplete() {
+        return messageMarkerComplete;
     }
 
     private File getFile(String resourceName) throws URISyntaxException {

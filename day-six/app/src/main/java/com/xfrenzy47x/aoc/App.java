@@ -10,6 +10,7 @@ import java.net.URISyntaxException;
 public class App {
     public static void main(String[] args) throws URISyntaxException {
         DataStreamService dataStreamService = new DataStreamService("input.txt");
-        System.out.println("Result : " + dataStreamService.getMarkerComplete());
+        System.out.println("Part One Result : " + dataStreamService.getStartOfPacketMarkerComplete());
+        System.out.println("Part Two Result : " + dataStreamService.getMessageMarkerComplete());
     }
 }

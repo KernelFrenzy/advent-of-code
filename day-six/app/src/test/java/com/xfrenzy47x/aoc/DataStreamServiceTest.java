@@ -13,32 +13,37 @@ class DataStreamServiceTest {
 
 
     @Test
-    void considerTestOneResultShouldBe7() throws URISyntaxException {
+    void considerTestOneResultShouldBe7and10() throws URISyntaxException {
         DataStreamService dataStreamService = new DataStreamService("test-one.txt");
-        Assertions.assertEquals(7, dataStreamService.getMarkerComplete());
+        Assertions.assertEquals(7, dataStreamService.getStartOfPacketMarkerComplete());
+        Assertions.assertEquals(19, dataStreamService.getMessageMarkerComplete());
     }
 
     @Test
-    void considerTestTwoResultShouldBe5() throws URISyntaxException {
+    void considerTestTwoResultShouldBe7and23() throws URISyntaxException {
         DataStreamService dataStreamService = new DataStreamService("test-two.txt");
-        Assertions.assertEquals(5, dataStreamService.getMarkerComplete());
+        Assertions.assertEquals(7, dataStreamService.getStartOfPacketMarkerComplete());
+        Assertions.assertEquals(23, dataStreamService.getMessageMarkerComplete());
     }
 
     @Test
-    void considerTestThreeResultShouldBe6() throws URISyntaxException {
+    void considerTestThreeResultShouldBe6and23() throws URISyntaxException {
         DataStreamService dataStreamService = new DataStreamService("test-three.txt");
-        Assertions.assertEquals(6, dataStreamService.getMarkerComplete());
+        Assertions.assertEquals(6, dataStreamService.getStartOfPacketMarkerComplete());
+        Assertions.assertEquals(23, dataStreamService.getMessageMarkerComplete());
     }
 
     @Test
-    void considerTestFourResultShouldBe10() throws URISyntaxException {
+    void considerTestFourResultShouldBe11and29() throws URISyntaxException {
         DataStreamService dataStreamService = new DataStreamService("test-four.txt");
-        Assertions.assertEquals(10, dataStreamService.getMarkerComplete());
+        Assertions.assertEquals(11, dataStreamService.getStartOfPacketMarkerComplete());
+        Assertions.assertEquals(29, dataStreamService.getMessageMarkerComplete());
     }
 
     @Test
-    void considerTestFiveResultShouldBe11() throws URISyntaxException {
+    void considerTestFiveResultShouldBe11and26() throws URISyntaxException {
         DataStreamService dataStreamService = new DataStreamService("test-five.txt");
-        Assertions.assertEquals(11, dataStreamService.getMarkerComplete());
+        Assertions.assertEquals(11, dataStreamService.getStartOfPacketMarkerComplete());
+        Assertions.assertEquals(26, dataStreamService.getMessageMarkerComplete());
     }
 }
