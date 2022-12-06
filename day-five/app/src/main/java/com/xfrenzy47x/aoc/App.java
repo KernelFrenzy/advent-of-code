@@ -4,6 +4,7 @@
 package com.xfrenzy47x.aoc;
 
 import com.xfrenzy47x.aoc.service.CraneService;
+import com.xfrenzy47x.aoc.service.UpdatedCraneService;
 
 import java.net.URISyntaxException;
 
@@ -11,5 +12,7 @@ public class App {
     public static void main(String[] args) throws URISyntaxException {
         CraneService craneService = new CraneService("input.txt");
         System.out.println("Top crates are : " + craneService.getTopCrates());
+        UpdatedCraneService updatedCraneService = new UpdatedCraneService("input.txt");
+        System.out.println("Top crates with updated settings are : " + updatedCraneService.getTopCrates());
     }
 }
