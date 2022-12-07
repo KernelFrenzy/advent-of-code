@@ -35,8 +35,8 @@ public class DataStreamService {
 
             if (packetMarker.length() == 4 && startOfPacketMarkerComplete == 0) {
                 startOfPacketMarkerComplete = i+1;
-                packetMarker = "";
-            } else if (packetMarker.length() == 14 && messageMarkerComplete == 0) {
+            }
+            if (packetMarker.length() == 14 && messageMarkerComplete == 0) {
                 messageMarkerComplete = i+1;
                 break;
             }
