@@ -5,6 +5,7 @@ import com.xfrenzy47x.aoc.App;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class DataStreamService {
@@ -14,6 +15,8 @@ public class DataStreamService {
     public DataStreamService(String resourceName) throws URISyntaxException {
         File input = getFile(resourceName);
         String packetMarker = "";
+        HashSet<String> newPacketMarker = new HashSet<>();
+
         startOfPacketMarkerComplete = 0;
         messageMarkerComplete = 0;
         String theStream = "";
@@ -26,6 +29,7 @@ public class DataStreamService {
         }
 
         for (int i = 0; i < theStream.length(); i++) {
+
             String chara = theStream.substring(i, i+1);
             if (packetMarker.contains(chara)) {
                 packetMarker = chara;
@@ -33,11 +37,18 @@ public class DataStreamService {
                 packetMarker += chara;
             }
 
+            int oldLen = newPacketMarker.size();
+            newPacketMarker.add(chara);
+            if (newPacketMarker.size() == oldLen) {
+                newPacketMarker = new HashSet<>();
+                newPacketMarker.add(chara);
+            }
+
             if (packetMarker.length() == 4 && startOfPacketMarkerComplete == 0) {
                 startOfPacketMarkerComplete = i+1;
             }
-            if (packetMarker.length() == 14 && messageMarkerComplete == 0) {
-                messageMarkerComplete = i+1;
+            if (newPacketMarker.size() == 14 && messageMarkerComplete == 0) {
+                messageMarkerComplete = i;
                 break;
             }
         }

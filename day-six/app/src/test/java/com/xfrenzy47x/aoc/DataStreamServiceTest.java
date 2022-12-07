@@ -16,7 +16,7 @@ class DataStreamServiceTest {
     void considerTestOneResultShouldBe7and10() throws URISyntaxException {
         DataStreamService dataStreamService = new DataStreamService("test-one.txt");
         Assertions.assertEquals(7, dataStreamService.getStartOfPacketMarkerComplete());
-        Assertions.assertEquals(19, dataStreamService.getMessageMarkerComplete());
+        Assertions.assertEquals(0, dataStreamService.getMessageMarkerComplete());
     }
 
     @Test
@@ -34,16 +34,16 @@ class DataStreamServiceTest {
     }
 
     @Test
-    void considerTestFourResultShouldBe11and29() throws URISyntaxException {
+    void considerTestFourResultShouldBe11and32() throws URISyntaxException {
         DataStreamService dataStreamService = new DataStreamService("test-four.txt");
         Assertions.assertEquals(11, dataStreamService.getStartOfPacketMarkerComplete());
-        Assertions.assertEquals(29, dataStreamService.getMessageMarkerComplete());
+        Assertions.assertEquals(32, dataStreamService.getMessageMarkerComplete());
     }
 
     @Test
-    void considerTestFiveResultShouldBe11and26() throws URISyntaxException {
+    void considerTestFiveResultShouldBe11and27() throws URISyntaxException {
         DataStreamService dataStreamService = new DataStreamService("test-five.txt");
         Assertions.assertEquals(11, dataStreamService.getStartOfPacketMarkerComplete());
-        Assertions.assertEquals(26, dataStreamService.getMessageMarkerComplete());
+        Assertions.assertEquals(27, dataStreamService.getMessageMarkerComplete());
     }
 }
